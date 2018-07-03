@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ChunChunMaru Chat</title>
+    </head>
+    <body>
+        <webview id="messenger" src="https://www.messenger.com">
+        </webview><webview id="discord" src="https://discordapp.com/channels/@me">
+        </webview><webview id="recherche" src="https://duckduckgo.com/">
+        </webview><webview id="whatsapp" src="https://web.whatsapp.com/"></webview>
+        <img src="../img/discord.png" onclick="discord()" height="50" width="50"/>
+        <img src="../img/messenger.png" onclick="messenger()" height="50" width="50"/>
+        <img src="../img/duckduckgo.png" onclick="recherche()" height="50" width="50"/>
+        <img src="../img/whatsapp.png" onclick="whatsapp()" height="50" width="50"/>
+        <img src="../img/overview.jpg" onclick="overview()" height="50" width="50"/>
+        <script src="electron.js"></script>
+        <script src="chat.js"></script>
+    </body>
+</html>
