@@ -2,19 +2,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ChunChunMaru Chat</title>
+        <title>ChunChunMaru Dashboard</title>
     </head>
     <body>
-        <webview id="messenger" src="https://www.messenger.com">
-        </webview><webview id="discord" src="https://discordapp.com/channels/@me">
-        </webview><webview id="recherche" src="https://duckduckgo.com/">
-        </webview><webview id="whatsapp" src="https://web.whatsapp.com/"></webview>
-        <img src="../img/discord.png" onclick="discord()" height="50" width="50"/>
-        <img src="../img/messenger.png" onclick="messenger()" height="50" width="50"/>
-        <img src="../img/duckduckgo.png" onclick="recherche()" height="50" width="50"/>
-        <img src="../img/whatsapp.png" onclick="whatsapp()" height="50" width="50"/>
+        <webview id="screen1">
+        </webview><webview id="screen2">
+        </webview><webview id="screen3">
+        </webview><webview id="screen4"></webview>
+        <img src="../img/1.jpg" onclick="screen1()" height="50" width="50"/>
+        <img src="../img/2.jpg" onclick="screen2()" height="50" width="50"/>
+        <img src="../img/3.jpg" onclick="screen3()" height="50" width="50"/>
+        <img src="../img/4.jpg" onclick="screen4()" height="50" width="50"/>
         <img src="../img/overview.jpg" onclick="overview()" height="50" width="50"/>
-        <script src="electron.js"></script>
         <script src="chat.js"></script>
     </body>
 </html>

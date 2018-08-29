@@ -57,6 +57,14 @@ function openAnime(){
   }))
 }
 
+function openUrl(){
+    mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'url.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+}
+
 const template = [
   {
     label: 'Menu',
@@ -74,6 +82,10 @@ const template = [
         {
             label: 'Chat',
             click (){ openChat(); }
+        },
+        {
+            label: 'Paramètre',
+            click (){ openUrl(); }
         }
     ]
 },
