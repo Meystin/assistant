@@ -1,9 +1,9 @@
-version: 1.1.1
+version: 1.1.2
 files:
-  - url: ChunChunMaru-Setup-1.1.1.exe
-    sha512: yz78jlbNvcl0H5D86C0kAenkmHnjC+c/yoe/0KPbqi4143iD0kH5Odve5sAXrxmH+JS04y5LztzA8zOWSdik0w==
-    size: 37892319
-path: ChunChunMaru-Setup-1.1.1.exe
-sha512: yz78jlbNvcl0H5D86C0kAenkmHnjC+c/yoe/0KPbqi4143iD0kH5Odve5sAXrxmH+JS04y5LztzA8zOWSdik0w==
-sha2: f905337a32d24c4df4143fdbeac046adc341b439a4ebfe124e5f08d0c86c0efd
-releaseDate: '2018-08-29T03:39:16.007Z'
+  - url: ChunChunMaru-Setup-1.1.2.exe
+    sha512: m5zneY0346qZEJAFp/Pw9xYExVkgV3lKlpeU8Abpr3/+qi/qdjQ0IGwXdOagxLcFedZ2WcGSRLOYQ3XTfnCbFg==
+    size: 37892445
+path: ChunChunMaru-Setup-1.1.2.exe
+sha512: m5zneY0346qZEJAFp/Pw9xYExVkgV3lKlpeU8Abpr3/+qi/qdjQ0IGwXdOagxLcFedZ2WcGSRLOYQ3XTfnCbFg==
+sha2: bea3a538e638015dec04abc9065887b1afd00635d03929d8b1a4fb235355d2fc
+releaseDate: '2018-09-10T08:43:10.118Z'

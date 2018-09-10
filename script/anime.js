@@ -1,4 +1,5 @@
 const storage = require('electron-json-storage');
+const electron = require('electron.js');
 
 document.onload=getStateAnime();
 
