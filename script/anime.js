@@ -140,7 +140,9 @@ function suppression(anime){
 }
 
 function ajout(){
+    var height = window.innerHeight - 67;
     document.getElementById("newAnime").style.display="inline";
+    document.getElementById("search").style.height = height.toString() + "px";
     document.getElementById("wishList").style.display="none";
 }
 
