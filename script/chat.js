@@ -22,10 +22,6 @@ var tab;
 function erased()
 {
     var height = window.innerHeight - 63;
-    document.getElementById('screen1').style.display = "none";
-    document.getElementById('screen2').style.display = "none";
-    document.getElementById('screen3').style.display = "none";
-    document.getElementById('screen4').style.display = "none";
     document.getElementById('screen1').style.height = height.toString() + "px";
     document.getElementById('screen1').style.width = "100%";
     document.getElementById('screen2').style.height = height.toString() + "px";
@@ -34,46 +30,57 @@ function erased()
     document.getElementById('screen3').style.width = "100%";
     document.getElementById('screen4').style.height = height.toString() + "px";
     document.getElementById('screen4').style.width = "100%";
+    document.getElementById('screen1').style.display = "inline-flex";
+    document.getElementById('screen2').style.display = "inline-flex";
+    document.getElementById('screen3').style.display = "inline-flex";
+    document.getElementById('screen4').style.display = "inline-flex";
 }
 
 function screen1()
 {
     erased();
-    var height = window.innerHeight - 63;
-    document.getElementById('screen1').style.height = height.toString() + "px";
-    document.getElementById('screen1').style.width = "100%";
-    document.getElementById('screen1').style.display = "inline-flex";
+    setTimeout(function (){
+        document.getElementById('screen2').style.display = "none";
+        document.getElementById('screen3').style.display = "none";
+        document.getElementById('screen4').style.display = "none";
+    },5);
     tab = 1;
 }
 
 function screen2()
 {
-    erased();
-    var height = window.innerHeight - 63;
-    document.getElementById('screen2').style.height = height.toString() + "px";
-    document.getElementById('screen2').style.width = "100%";
-    document.getElementById('screen2').style.display = "inline-flex";
+    erased();setTimeout(function (){
+        document.getElementById('screen1').style.display = "none";
+        document.getElementById('screen3').style.display = "none";
+        document.getElementById('screen4').style.display = "none";
+    },5);
+    
     tab = 2;
 }
 
 function screen3()
 {
     erased();
-    var height = window.innerHeight - 63;
-    document.getElementById('screen3').style.height = height.toString() + "px";
-    document.getElementById('screen3').style.width = "100%";
-    document.getElementById('screen3').style.display = "inline-flex";
+    setTimeout(function(){
+        document.getElementById('screen1').style.display = "none";
+        document.getElementById('screen2').style.display = "none";
+        document.getElementById('screen4').style.display = "none";
+    },5);
+    
     tab = 3;
 }
 
 function screen4()
 {
     erased();
-    var height = window.innerHeight - 63;
-    document.getElementById('screen4').style.display = "inline-flex";
-    document.getElementById('screen4').style.height = height.toString() + "px";
-    document.getElementById('screen4').style.width = "100%";
+    setTimeout(function(){
+        document.getElementById('screen1').style.display = "none";
+        document.getElementById('screen2').style.display = "none";
+        document.getElementById('screen3').style.display = "none";
+    },5);
+    
     tab = 4;
+
 }
 
 function overview()
@@ -91,30 +98,24 @@ function overview()
     document.getElementById('screen4').style.display = "inline-flex";
     document.getElementById('screen4').style.height = demi.toString() + "px";
     document.getElementById('screen4').style.width = "50%";
-    tab = 5
+    tab = 0;
 }
 
 window.onresize = function () {
-    console.log('ok');
     switch (tab) {
         case 1:
-            console.log('ok'+ tab);
             screen1();
             break;
         case 2:
-            console.log('ok'+ tab);
             screen2();
             break;
         case 3:
-            console.log('ok'+ tab);
             screen3();
             break;
         case 4:
-            console.log('ok' + tab);
             screen4();
             break;
-        case 5:
-            console.log('ok'+ tab);
+        case 0:
             overview();
             break;
     }
