@@ -30,55 +30,37 @@ function erased()
     document.getElementById('screen3').style.width = "100%";
     document.getElementById('screen4').style.height = height.toString() + "px";
     document.getElementById('screen4').style.width = "100%";
-    document.getElementById('screen1').style.display = "inline-flex";
-    document.getElementById('screen2').style.display = "inline-flex";
-    document.getElementById('screen3').style.display = "inline-flex";
-    document.getElementById('screen4').style.display = "inline-flex";
+    document.getElementById('screen1').style.display = "none";
+    document.getElementById('screen2').style.display = "none";
+    document.getElementById('screen3').style.display = "none";
+    document.getElementById('screen4').style.display = "none";
 }
 
 function screen1()
 {
     erased();
-    setTimeout(function (){
-        document.getElementById('screen2').style.display = "none";
-        document.getElementById('screen3').style.display = "none";
-        document.getElementById('screen4').style.display = "none";
-    },5);
+            document.getElementById('screen1').style.display = "inline-flex";
     tab = 1;
 }
 
 function screen2()
 {
-    erased();setTimeout(function (){
-        document.getElementById('screen1').style.display = "none";
-        document.getElementById('screen3').style.display = "none";
-        document.getElementById('screen4').style.display = "none";
-    },5);
-    
+    erased();
+    document.getElementById('screen2').style.display = "inline-flex";
     tab = 2;
 }
 
 function screen3()
 {
     erased();
-    setTimeout(function(){
-        document.getElementById('screen1').style.display = "none";
-        document.getElementById('screen2').style.display = "none";
-        document.getElementById('screen4').style.display = "none";
-    },5);
-    
+    document.getElementById('screen3').style.display = "inline-flex";
     tab = 3;
 }
 
 function screen4()
 {
     erased();
-    setTimeout(function(){
-        document.getElementById('screen1').style.display = "none";
-        document.getElementById('screen2').style.display = "none";
-        document.getElementById('screen3').style.display = "none";
-    },5);
-    
+    document.getElementById('screen4').style.display = "inline-flex";
     tab = 4;
 
 }
@@ -86,16 +68,16 @@ function screen4()
 function overview()
 {
     var demi = (window.innerHeight - 67) / 2;
+    document.getElementById('screen4').style.display = "inline-flex";
     document.getElementById('screen1').style.display = "inline-flex";
+    document.getElementById('screen2').style.display = "inline-flex";
+    document.getElementById('screen3').style.display = "inline-flex";
     document.getElementById('screen1').style.height = demi.toString() + "px";
     document.getElementById('screen1').style.width = "50%";
-    document.getElementById('screen2').style.display = "inline-flex";
     document.getElementById('screen2').style.height = demi.toString() + "px";
     document.getElementById('screen2').style.width = "50%";
-    document.getElementById('screen3').style.display = "inline-flex";
     document.getElementById('screen3').style.height = demi.toString() + "px";
     document.getElementById('screen3').style.width = "50%";
-    document.getElementById('screen4').style.display = "inline-flex";
     document.getElementById('screen4').style.height = demi.toString() + "px";
     document.getElementById('screen4').style.width = "50%";
     tab = 0;

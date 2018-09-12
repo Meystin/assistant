@@ -18,11 +18,12 @@
   "author": "Meystin",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.8",
-    "electron-builder": "20.28.3",
+    "electron": "^2.0.9",
+    "electron-builder": "20.28.4",
     "electron-packager": "12.1.1"
   },
   "dependencies": {
+    "ajv": "^6.5.3",
     "electron-json-storage": "^4.0.2"
   },
   "build": {
