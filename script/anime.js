@@ -50,11 +50,10 @@ function getStateAnime(){
             req.open('GET', element.url, false);
             req.send(null);
             if(req.status === 200){
-                console.log(req.responseText.search(regex));
                 if(req.responseText.search(regex)>0){
-                    stateAnime.push({titre : element.titre, state: false});
+                    stateAnime.push({titre : element.titre, state: false, url:element.url});
                 }else{
-                    stateAnime.push({titre : element.titre, state: true});
+                    stateAnime.push({titre : element.titre, state: true, url:element.url});
                 }
             }
         });
@@ -87,10 +86,17 @@ function showAnime(stateAnime){
             let classe = document.createAttribute("class");
             classe.value = "alert alert-success";
             anime.setAttributeNode(classe);
+            /*let input = document.createAttribute("onclick");
+            input.value = "showSite()";
+            anime.setAttributeNode(input);*/
             let role = document.createAttribute("role");
             role.value = "alert";
             anime.setAttributeNode(role);
-            anime.appendChild(document.createTextNode(element.titre + ' => Anime terminé'));
+            let url = anime.appendChild(document.createElement("a"));
+            let lien = document.createAttribute("href");
+            lien.value = element.url;
+            url.setAttributeNode(lien);
+            url.appendChild(document.createTextNode(element.titre + ' => Anime terminé'));
             
         }else{
             let classe = document.createAttribute("class");
@@ -118,6 +124,15 @@ function showAnime(stateAnime){
         let btnStyle = document.createAttribute("style");
         btnStyle.value = "position: absolute;right: 10px;top: 5px;";
         bouton.setAttributeNode(btnStyle);
+    });
+}
+
+function showSite(){
+    const Window = electron.remote.BrowserWindow;
+    var linkWindow = new Window({width: 800, height: 600});
+    linkWindow.loadURL();
+    linkWindow.on('closed', function () {
+        linkWindow = null;
     });
 }
 
@@ -152,6 +167,11 @@ function deletedb(){
 });
 }
 
-document.getElementById('search').addEventListener('new-window', function (event){
-    document.getElementById('search').src = event.url;
-})
+document.getElementById('wishList').addEventListener('new-window', function (event) {
+    const Window = electron.remote.BrowserWindow;
+    var linkWindow = new Window({width: 800, height: 600});
+    linkWindow.loadURL(event.url);
+    linkWindow.on('closed', function () {
+        linkWindow = null;
+    });
+});
