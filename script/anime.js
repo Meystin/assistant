@@ -1,44 +1,46 @@
 const storage = require('electron-json-storage');
 const electron = require('electron.js');
 
-document.onload=getStateAnime();
+document.onload = getStateAnime();
 
-function getUrl(){  
+function getUrl() {
     var url = document.getElementById('search').getURL();
     var titre = url.split("/");
-    titre = titre[titre.length-1].split(".");
+    titre = titre[titre.length - 1].split(".");
     titre = fusion(titre);
-    storage.get('wishList',function (err, data){
-        if(err)throw err;
+    storage.get('wishList', function (err, data) {
+        if (err)
+            throw err;
         var json = [];
-        if(data.length){
+        if (data.length) {
             json = data;
         }
-        json.push({titre:titre,url:url});
+        json.push({titre: titre, url: url});
         save(json);
     });
 }
 
-function save(json){
-    storage.set('wishList', json, function(error) {
-        if (error) throw error;
+function save(json) {
+    storage.set('wishList', json, function (error) {
+        if (error)
+            throw error;
         console.log('save');
     });
 }
 
-function fusion(txt){
-    if(txt.length >2){
-        var titre=txt[txt.length - 2];
-        for(var i=txt.length - 3 ; i>-1;i--){
+function fusion(txt) {
+    if (txt.length > 2) {
+        var titre = txt[txt.length - 2];
+        for (var i = txt.length - 3; i > -1; i--) {
             titre = txt[i].concat(titre);
         }
-        return titre.replace(/\+/gi," ");
-    }else{
-        return txt[0].replace(/\+/gi," ");
+        return titre.replace(/\+/gi, " ");
+    } else {
+        return txt[0].replace(/\+/gi, " ");
     }
 }
 
-function getStateAnime(){
+function getStateAnime() {
     document.getElementById("newAnime").style.display="none";
     document.getElementById("wishList").style.display="inline";
     var regex = / \? \(en cours\)/;
@@ -62,17 +64,17 @@ function getStateAnime(){
     });
 }
 
-function compare(a,b){
-    if(a.state == true && b.state == false){
+function compare(a, b) {
+    if (a.state == true && b.state == false) {
         return -1;
-    }else if(a.state == false && b.state == true){
+    } else if (a.state == false && b.state == true) {
         return 1;
     }
     return 0;
 }
 
-function showAnime(stateAnime){
-    if (document.getElementById('listAnime')){
+function showAnime(stateAnime) {
+    if (document.getElementById('listAnime')) {
         document.getElementById('listAnime').remove();
     }
     var racine = document.getElementById("wishList");
@@ -80,15 +82,15 @@ function showAnime(stateAnime){
     let tabId = document.createAttribute("id");
     tabId.value = "listAnime";
     tableau.setAttributeNode(tabId);
-    stateAnime.forEach(function (element){
+    stateAnime.forEach(function (element) {
         var anime = tableau.appendChild(document.createElement("div"));
-        if(element.state){
+        if (element.state) {
             let classe = document.createAttribute("class");
             classe.value = "alert alert-success";
             anime.setAttributeNode(classe);
             /*let input = document.createAttribute("onclick");
-            input.value = "showSite()";
-            anime.setAttributeNode(input);*/
+             input.value = "showSite()";
+             anime.setAttributeNode(input);*/
             let role = document.createAttribute("role");
             role.value = "alert";
             anime.setAttributeNode(role);
@@ -97,8 +99,8 @@ function showAnime(stateAnime){
             lien.value = element.url;
             url.setAttributeNode(lien);
             url.appendChild(document.createTextNode(element.titre + ' => Anime terminé'));
-            
-        }else{
+
+        } else {
             let classe = document.createAttribute("class");
             classe.value = "alert alert-secondary";
             anime.setAttributeNode(classe);
@@ -127,7 +129,7 @@ function showAnime(stateAnime){
     });
 }
 
-function showSite(){
+function showSite() {
     const Window = electron.remote.BrowserWindow;
     var linkWindow = new Window({width: 800, height: 600});
     linkWindow.loadURL();
@@ -136,35 +138,37 @@ function showSite(){
     });
 }
 
-function suppression(anime){
-    storage.get('wishList',function (err, data){
-        if(err)throw err;
-        var num=0;
-        data.forEach(function(element){
+function suppression(anime) {
+    storage.get('wishList', function (err, data) {
+        if (err)
+            throw err;
+        var num = 0;
+        data.forEach(function (element) {
             console.log(element.titre);
-            if(element.titre == anime){
+            if (element.titre == anime) {
                 data.splice(num, 1);
                 save(data);
                 location.reload();
                 return;
-            }else{
+            } else {
                 num++;
             }
         });
     });
 }
 
-function ajout(){
+function ajout() {
     var height = window.innerHeight - 67;
-    document.getElementById("newAnime").style.display="inline";
+    document.getElementById("newAnime").style.display = "inline";
     document.getElementById("search").style.height = height.toString() + "px";
-    document.getElementById("wishList").style.display="none";
+    document.getElementById("wishList").style.display = "none";
 }
 
-function deletedb(){
-    storage.remove('wishList', function(error) {
-  if (error) throw error;
-});
+function deletedb() {
+    storage.remove('wishList', function (error) {
+        if (error)
+            throw error;
+    });
 }
 
 document.getElementById('wishList').addEventListener('new-window', function (event) {
