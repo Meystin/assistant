@@ -27,6 +27,7 @@ function saveUrl() {
         json.push({screen: i, url: document.getElementById(i.toString()).value});
     }
     save(json);
+    location.assign("chatview.html");
 }
 
 function changeUrl1() {

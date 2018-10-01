@@ -88,16 +88,12 @@ function showAnime(stateAnime) {
             let classe = document.createAttribute("class");
             classe.value = "alert alert-success";
             anime.setAttributeNode(classe);
-            /*let input = document.createAttribute("onclick");
-             input.value = "showSite()";
-             anime.setAttributeNode(input);*/
             let role = document.createAttribute("role");
             role.value = "alert";
             anime.setAttributeNode(role);
             let url = anime.appendChild(document.createElement("a"));
             let lien = document.createAttribute("href");
             lien.value = element.url;
-            url.setAttributeNode(lien);
             url.appendChild(document.createTextNode(element.titre + ' => Anime terminé'));
 
         } else {
@@ -107,7 +103,10 @@ function showAnime(stateAnime) {
             let role = document.createAttribute("role");
             role.value = "alert";
             anime.setAttributeNode(role);
-            anime.appendChild(document.createTextNode(element.titre + " => Anime en cours"));
+            let url = anime.appendChild(document.createElement("a"));
+            let lien = document.createAttribute("href");
+            lien.value = element.url;
+            url.appendChild(document.createTextNode(element.titre + " => Anime en cours"));
         }
         let bouton = anime.appendChild(document.createElement("button"));
         bouton.appendChild(document.createTextNode('Supprimer'));
