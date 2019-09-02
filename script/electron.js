@@ -8,16 +8,24 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
+
   mainWindow = new BrowserWindow({width: 800, height: 600})
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'chatview.html'),
     protocol: 'file:',
     slashes: true
-  }))
+}))
+var ses = electron.session.defaultSession; //Gets the default session
+ses.flushStorageData(); //Writes any unwritten DOMStorage data to disk
+ses.clearStorageData({ //Clears the specified storages in the session
+    storages: ['appcache', 'serviceworkers', 'cachestorage', 'websql', 'indexdb'],
+})
   mainWindow.on('closed', function () {
     mainWindow = null
   })
 }
+
+
 
 app.on('ready', createWindow)
 
@@ -64,6 +72,8 @@ function openUrl(){
     slashes: true
   }))
 }
+
+
 
 const template = [
   {
