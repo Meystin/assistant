@@ -1,15 +1,14 @@
 const storage = require('electron-json-storage');
-const electron = require('electron.js');
 
 function getUrl() {
     storage.get('url', function (error, data) {
         if (error)
             throw error;
         if (data.length) {
-            var json = data;
+            let json = data;
             json.forEach(function (elm) {
                 if (elm.url)
-                    document.getElementById("screen" + elm.screen).src = elm.url;
+                    document.getElementById(elm.screen).src = elm.url;
                 else
                     location.assign("url.html");
             });
@@ -21,81 +20,56 @@ var tab;
 
 function erased()
 {
-    var height = window.innerHeight - 63;
-    document.getElementById('screen1').style.height = height.toString() + "px";
-    document.getElementById('screen1').style.width = "100%";
-    document.getElementById('screen2').style.height = height.toString() + "px";
-    document.getElementById('screen2').style.width = "100%";
-    document.getElementById('screen3').style.height = height.toString() + "px";
-    document.getElementById('screen3').style.width = "100%";
-    document.getElementById('screen4').style.height = height.toString() + "px";
-    document.getElementById('screen4').style.width = "100%";
-    document.getElementById('screen1').style.display = "none";
-    document.getElementById('screen2').style.display = "none";
-    document.getElementById('screen3').style.display = "none";
-    document.getElementById('screen4').style.display = "none";
-}
-
-function screen1()
-{
-    erased();
-            document.getElementById('screen1').style.display = "inline-flex";
-    tab = 1;
-}
-
-function screen2()
-{
-    erased();
-    document.getElementById('screen2').style.display = "inline-flex";
-    tab = 2;
-}
-
-function screen3()
-{
-    erased();
-    document.getElementById('screen3').style.display = "inline-flex";
-    tab = 3;
-}
-
-function screen4()
-{
-    erased();
-    document.getElementById('screen4').style.display = "inline-flex";
-    tab = 4;
-
+    const height = window.innerHeight - 63;
+    document.getElementById('1').style.height = height.toString() + "px";
+    document.getElementById('1').style.width = "100%";
+    document.getElementById('2').style.height = height.toString() + "px";
+    document.getElementById('2').style.width = "100%";
+    document.getElementById('3').style.height = height.toString() + "px";
+    document.getElementById('3').style.width = "100%";
+    document.getElementById('4').style.height = height.toString() + "px";
+    document.getElementById('4').style.width = "100%";
+    document.getElementById('1').style.display = "none";
+    document.getElementById('2').style.display = "none";
+    document.getElementById('3').style.display = "none";
+    document.getElementById('4').style.display = "none";
 }
 
 function overview()
 {
-    var demi = (window.innerHeight - 67) / 2;
-    document.getElementById('screen4').style.display = "inline-flex";
-    document.getElementById('screen1').style.display = "inline-flex";
-    document.getElementById('screen2').style.display = "inline-flex";
-    document.getElementById('screen3').style.display = "inline-flex";
-    document.getElementById('screen1').style.height = demi.toString() + "px";
-    document.getElementById('screen1').style.width = "50%";
-    document.getElementById('screen2').style.height = demi.toString() + "px";
-    document.getElementById('screen2').style.width = "50%";
-    document.getElementById('screen3').style.height = demi.toString() + "px";
-    document.getElementById('screen3').style.width = "50%";
-    document.getElementById('screen4').style.height = demi.toString() + "px";
-    document.getElementById('screen4').style.width = "50%";
+    const demi = (window.innerHeight - 67) / 2;
+    document.getElementById('4').style.display = "inline-flex";
+    document.getElementById('1').style.display = "inline-flex";
+    document.getElementById('2').style.display = "inline-flex";
+    document.getElementById('3').style.display = "inline-flex";
+    document.getElementById('1').style.height = demi.toString() + "px";
+    document.getElementById('1').style.width = "50%";
+    document.getElementById('2').style.height = demi.toString() + "px";
+    document.getElementById('2').style.width = "50%";
+    document.getElementById('3').style.height = demi.toString() + "px";
+    document.getElementById('3').style.width = "50%";
+    document.getElementById('4').style.height = demi.toString() + "px";
+    document.getElementById('4').style.width = "50%";
     tab = 0;
 }
 
 window.onresize = function () {
     switch (tab) {
         case 1:
-            screen1();
+        erased();
+        document.getElementById('1').style.display = "inline-flex";
             break;
         case 2:
-            screen2();
+        erased();
+        document.getElementById('2').style.display = "inline-flex";
             break;
         case 3:
-            screen3();
+        erased();
+        document.getElementById('3').style.display = "inline-flex";
             break;
         case 4:
-            screen4();
+        erased();
+        document.getElementById('4').style.display = "inline-flex";
             break;
         case 0:
             overview();
@@ -106,40 +80,32 @@ window.onresize = function () {
 window.onload = function () {
     getUrl();
     overview();
-};
+}
 
-document.getElementById('screen1').addEventListener('new-window', function (event) {
-    const Window = electron.remote.BrowserWindow;
-    var linkWindow = new Window({width: 800, height: 600});
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function () {
-        linkWindow = null;
-    });
-});
+function getEvent(event,screen){
+  if (event.button == 2){
+    refresh(screen.name)
+  }else
+  resize(screen.name)
+}
 
-document.getElementById('screen2').addEventListener('new-window', function (event) {
-    const Window = electron.remote.BrowserWindow;
-    var linkWindow = new Window({width: 800, height: 600});
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function () {
-        linkWindow = null;
-    });
-});
+function resize(screen){
+    erased();
+    document.getElementById(screen).style.display = "inline-flex";
+    tab = screen;
+}
 
-document.getElementById('screen3').addEventListener('new-window', function (event) {
-    const Window = electron.remote.BrowserWindow;
-    var linkWindow = new Window({width: 800, height: 600});
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function () {
-        linkWindow = null;
-    });
-});
-
-document.getElementById('screen4').addEventListener('new-window', function (event) {
-    const Window = electron.remote.BrowserWindow;
-    var linkWindow = new Window({width: 800, height: 600});
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function () {
-        linkWindow = null;
-    });
-});
+function refresh(screen){
+  storage.get('url', function (error, data) {
+      if (error)
+          throw error;
+      if (data.length) {
+          let json = data;
+          json.forEach(function (elm) {
+              if (elm.screen == screen){
+                  document.getElementById(elm.screen).src = elm.url;
+                  }
+          });
+      }
+  });
+}
