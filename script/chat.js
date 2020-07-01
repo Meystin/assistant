@@ -1,5 +1,6 @@
 const storage = require('electron-json-storage');
 
+
 function getUrl() {
     storage.get('url', function (error, data) {
         if (error)
@@ -16,7 +17,7 @@ function getUrl() {
     });
 }
 
-var tab;
+let tab;
 
 function erased()
 {

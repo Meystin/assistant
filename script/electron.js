@@ -5,13 +5,20 @@ const url = require('url')
 let mainWindow
 
 function createWindow() {
-    
+
     session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
         details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
         callback({cancel: false, requestHeaders: details.requestHeaders, 'Content-Security-Policy': ["default-src 'self'"]});
-    });
+    })
 
-    mainWindow = new BrowserWindow({webPreferences: {contextIsolation: true}, width: 800, height: 600})
+    session.fromPartition('some-partition').setPermissionRequestHandler((webContents, permission, callback) => {
+        const url = webContents.getURL()
+        if (permission === 'notifications') {
+            callback(false)
+        }
+    })
+
+    mainWindow = new BrowserWindow({webPreferences:{nodeIntegration: true, webviewTag: true}, width: 800, height: 600})
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'chatview.html'),
         protocol: 'file:',
@@ -23,18 +30,15 @@ function createWindow() {
     })
 }
 
-//'Content-Security-Policy': ["default-src 'self'"]
-//{extraHeaders: "Content-Security-Policy: default-src 'self'"}
-
 app.on('web-contents-created', (e, contents) => {
-    if (contents.getType() == 'webview') {
-        contents.on('new-window', (e, url) => {
-            e.preventDefault()
-            let win = new BrowserWindow({width: 800, height: 600})
-            win.loadURL(url);
-        })
-    }
-})
+ if (contents.getType() == 'webview') {
+ contents.on('new-window', (e, url) => {
+ e.preventDefault()
+ let win = new BrowserWindow({width: 800, height: 600})
+ win.loadURL(url);
+ })
+ }
+ })
 
 app.on('ready', createWindow)
 
