@@ -1,12 +1,11 @@
 {
   "name": "ChunChunMaru",
-  "version": "1.1.0",
-  "description": "A minimal Electron application",
+  "version": "1.1.3",
+  "description": "get your own dashboard",
   "main": "./script/electron.js",
   "scripts": {
     "start": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder "
+    "dist": "electron-builder"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -19,10 +18,13 @@
   "author": "Meystin",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "^9.0.5",
+    "electron-builder": "20.28.4",
+    "electron-packager": "12.1.1"
   },
   "dependencies": {
-    "electron-json-storage": "^4.0.2"
+    "ajv": "^6.10.2",
+    "electron-json-storage": "^4.1.8"
   },
   "build": {
     "appId": "my.ChunChunMaru"

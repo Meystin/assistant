@@ -2,19 +2,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ChunChunMaru Chat</title>
+        <title>ChunChunMaru Dashboard</title>
     </head>
     <body>
-        <webview id="messenger" src="https://www.messenger.com">
-        </webview><webview id="discord" src="https://discordapp.com/channels/@me">
-        </webview><webview id="recherche" src="https://duckduckgo.com/">
-        </webview><webview id="whatsapp" src="https://web.whatsapp.com/"></webview>
-        <img src="../img/discord.png" onclick="discord()" height="50" width="50"/>
-        <img src="../img/messenger.png" onclick="messenger()" height="50" width="50"/>
-        <img src="../img/duckduckgo.png" onclick="recherche()" height="50" width="50"/>
-        <img src="../img/whatsapp.png" onclick="whatsapp()" height="50" width="50"/>
+        <webview id="1" spellcheck="true">
+        </webview><webview id="2" >
+        </webview><webview id="3" >
+        </webview><webview id="4" ></webview>
+        <img name="1" src="../img/1.jpg" onmouseup="getEvent(event,this)" height="50" width="50"/>
+        <img name="2" src="../img/2.jpg" onmouseup="getEvent(event,this)" height="50" width="50"/>
+        <img name="3" src="../img/3.jpg" onmouseup="getEvent(event,this)" height="50" width="50"/>
+        <img name="4" src="../img/4.jpg" onmouseup="getEvent(event,this)" height="50" width="50"/>
         <img src="../img/overview.jpg" onclick="overview()" height="50" width="50"/>
-        <script src="electron.js"></script>
         <script src="chat.js"></script>
     </body>
 </html>

@@ -1,101 +1,112 @@
+const storage = require('electron-json-storage');
+
+
+function getUrl() {
+    storage.get('url', function (error, data) {
+        if (error)
+            throw error;
+        if (data.length) {
+            let json = data;
+            json.forEach(function (elm) {
+                if (elm.url)
+                    document.getElementById(elm.screen).src = elm.url;
+                else
+                    location.assign("url.html");
+            });
+        }
+    });
+}
+
+let tab;
+
 function erased()
 {
-    document.getElementById('messenger').style.display="none";
-    document.getElementById('discord').style.display="none";
-    document.getElementById('recherche').style.display="none";
-    document.getElementById('whatsapp').style.display="none";
-    document.getElementById('messenger').style.height="624px";
-    document.getElementById('messenger').style.width="100%";
-    document.getElementById('discord').style.height="624px";
-    document.getElementById('discord').style.width="100%";
-    document.getElementById('whatsapp').style.height="624px";
-    document.getElementById('whatsapp').style.width="100%";
-    document.getElementById('recherche').style.height="624px";
-    document.getElementById('recherche').style.width="100%";
-}
-
-function messenger()
-{
-    erased();
-    document.getElementById('messenger').style.height="624px";
-    document.getElementById('messenger').style.width="100%";
-    document.getElementById('messenger').style.display="inline-flex";
-}
-
-function recherche()
-{
-    erased();
-    document.getElementById('recherche').style.height="624px";
-    document.getElementById('recherche').style.width="100%";
-    document.getElementById('recherche').style.display="inline-flex";
-}
-
-function discord()
-{
-    erased();
-    document.getElementById('discord').style.height="624px";
-    document.getElementById('discord').style.width="100%";
-    document.getElementById('discord').style.display="inline-flex";
-}
-
-function whatsapp()
-{
-    erased();
-    document.getElementById('whatsapp').style.display="inline-flex";
-    document.getElementById('whatsapp').style.height="624px";
-    document.getElementById('whatsapp').style.width="100%";
+    const height = window.innerHeight - 63;
+    document.getElementById('1').style.height = height.toString() + "px";
+    document.getElementById('1').style.width = "100%";
+    document.getElementById('2').style.height = height.toString() + "px";
+    document.getElementById('2').style.width = "100%";
+    document.getElementById('3').style.height = height.toString() + "px";
+    document.getElementById('3').style.width = "100%";
+    document.getElementById('4').style.height = height.toString() + "px";
+    document.getElementById('4').style.width = "100%";
+    document.getElementById('1').style.display = "none";
+    document.getElementById('2').style.display = "none";
+    document.getElementById('3').style.display = "none";
+    document.getElementById('4').style.display = "none";
 }
 
 function overview()
 {
-    document.getElementById('messenger').style.display="inline-flex";
-    document.getElementById('messenger').style.height="310px";
-    document.getElementById('messenger').style.width="50%";
-    document.getElementById('discord').style.display="inline-flex";
-    document.getElementById('discord').style.height="310px";
-    document.getElementById('discord').style.width="50%";
-    document.getElementById('recherche').style.display="inline-flex";
-    document.getElementById('recherche').style.height="310px";
-    document.getElementById('recherche').style.width="50%";
-    document.getElementById('whatsapp').style.display="inline-flex";
-    document.getElementById('whatsapp').style.height="310px";
-    document.getElementById('whatsapp').style.width="50%";
+    const demi = (window.innerHeight - 67) / 2;
+    document.getElementById('4').style.display = "inline-flex";
+    document.getElementById('1').style.display = "inline-flex";
+    document.getElementById('2').style.display = "inline-flex";
+    document.getElementById('3').style.display = "inline-flex";
+    document.getElementById('1').style.height = demi.toString() + "px";
+    document.getElementById('1').style.width = "50%";
+    document.getElementById('2').style.height = demi.toString() + "px";
+    document.getElementById('2').style.width = "50%";
+    document.getElementById('3').style.height = demi.toString() + "px";
+    document.getElementById('3').style.width = "50%";
+    document.getElementById('4').style.height = demi.toString() + "px";
+    document.getElementById('4').style.width = "50%";
+    tab = 0;
 }
 
-window.onload=overview();
+window.onresize = function () {
+    switch (tab) {
+        case 1:
+        erased();
+        document.getElementById('1').style.display = "inline-flex";
+            break;
+        case 2:
+        erased();
+        document.getElementById('2').style.display = "inline-flex";
+            break;
+        case 3:
+        erased();
+        document.getElementById('3').style.display = "inline-flex";
+            break;
+        case 4:
+        erased();
+        document.getElementById('4').style.display = "inline-flex";
+            break;
+        case 0:
+            overview();
+            break;
+    }
+}
 
-document.getElementById('messenger').addEventListener('new-window', function (event, url){
-    const Window = electron.remote.BrowserWindow
-    var linkWindow = new Window({width: 800, height: 600})
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function (){
-        linkWindow = null;
-    })
-})
+window.onload = function () {
+    getUrl();
+    overview();
+}
 
-document.getElementById('recherche').addEventListener('new-window', function (event, url){
-    const Window = electron.remote.BrowserWindow
-    var linkWindow = new Window({width: 800, height: 600})
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function (){
-        linkWindow = null;
-    })
-})
+function getEvent(event,screen){
+  if (event.button == 2){
+    refresh(screen.name)
+  }else
+  resize(screen.name)
+}
 
-document.getElementById('discord').addEventListener('new-window', function (event, url){
-    const Window = electron.remote.BrowserWindow
-    var linkWindow = new Window({width: 800, height: 600})
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function (){
-        linkWindow = null;
-    })
-})
+function resize(screen){
+    erased();
+    document.getElementById(screen).style.display = "inline-flex";
+    tab = screen;
+}
 
-document.getElementById('whatsapp').addEventListener('new-window', function (event, url){
-    const Window = electron.remote.BrowserWindow
-    var linkWindow = new Window({width: 800, height: 600})
-    linkWindow.loadURL(event.url);
-    linkWindow.on('closed', function (){
-        linkWindow = null;
-    })
-})
+function refresh(screen){
+  storage.get('url', function (error, data) {
+      if (error)
+          throw error;
+      if (data.length) {
+          let json = data;
+          json.forEach(function (elm) {
+              if (elm.screen == screen){
+                  document.getElementById(elm.screen).src = elm.url;
+                  }
+          });
+      }
+  });
+}

@@ -1,4 +1,5 @@
 const storage = require('electron-json-storage');
+const electron = require('electron.js');
 
 document.onload=getStateAnime();
 
@@ -40,7 +41,7 @@ function fusion(txt){
 function getStateAnime(){
     document.getElementById("newAnime").style.display="none";
     document.getElementById("wishList").style.display="inline";
-    var regex = /itemprop="numberOfEpisodes">[?]</gi;
+    var regex = / \? \(en cours\)/;
     var stateAnime = [];
     storage.get('wishList',function (err, data){
         if(err)throw err;
@@ -49,6 +50,7 @@ function getStateAnime(){
             req.open('GET', element.url, false);
             req.send(null);
             if(req.status === 200){
+                console.log(req.responseText.search(regex));
                 if(req.responseText.search(regex)>0){
                     stateAnime.push({titre : element.titre, state: false});
                 }else{
@@ -138,7 +140,9 @@ function suppression(anime){
 }
 
 function ajout(){
+    var height = window.innerHeight - 67;
     document.getElementById("newAnime").style.display="inline";
+    document.getElementById("search").style.height = height.toString() + "px";
     document.getElementById("wishList").style.display="none";
 }
 
