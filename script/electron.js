@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Menu, session, webContents, shell} = require('electron')
+const {app, BrowserWindow, Menu, session, webContents, shell ,MenuItem} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -10,17 +10,15 @@ function createWindow() {
         details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
         callback({cancel: false, requestHeaders: details.requestHeaders, 'Content-Security-Policy': ["default-src 'self'"]});
     })
-
-    session.fromPartition('some-partition').setPermissionRequestHandler((webContents, permission, callback) => {
-        const url = webContents.getURL()
-        if (permission === 'notifications') {
-            callback(false)
-        }
+    
+    mainWindow = new BrowserWindow(
+        {webPreferences:
+            {nodeIntegration: true, nodeIntegrationInWorker: true, enableRemoteModule: true, contextIsolation: false, webviewTag: true}
+        , width: 800, height: 600
     })
-
-    mainWindow = new BrowserWindow({webPreferences:{nodeIntegration: true, webviewTag: true}, width: 800, height: 600})
+    
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'chatview.html'),
+        pathname: path.join(__dirname, 'chatParam/chatview.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -31,14 +29,28 @@ function createWindow() {
 }
 
 app.on('web-contents-created', (e, contents) => {
- if (contents.getType() == 'webview') {
- contents.on('new-window', (e, url) => {
- e.preventDefault()
- let win = new BrowserWindow({width: 800, height: 600})
- win.loadURL(url);
- })
- }
- })
+    if (contents.getType() == 'webview') {
+        contents.on('new-window', (e, url) => {
+            if (!url.includes("nautiljon")) {
+                e.preventDefault()
+                let win = new BrowserWindow({width: 800, height: 600})
+                win.loadURL(url);
+            } else {
+                contents.loadURL(url);
+            }
+        })
+        contents.on('context-menu', (e, params) => {
+        const sugges = new Menu()
+        for (const suggestion of params.dictionarySuggestions) {
+            sugges.append(new MenuItem({
+                label: suggestion,
+                click: () => mainWindow.webContents.replaceMisspelling(suggestion)
+            }))
+        }
+        sugges.popup();
+    })
+    }
+})
 
 app.on('ready', createWindow)
 
@@ -58,7 +70,7 @@ function openGame() {
 
 function openChat() {
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'chatview.html'),
+        pathname: path.join(__dirname, 'chatParam/chatview.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -66,7 +78,7 @@ function openChat() {
 
 function openAnime() {
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'animeview.html'),
+        pathname: path.join(__dirname, 'anime/animeview.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -74,7 +86,7 @@ function openAnime() {
 
 function openUrl() {
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'url.html'),
+        pathname: path.join(__dirname, 'chatParam/url.html'),
         protocol: 'file:',
         slashes: true
     }))

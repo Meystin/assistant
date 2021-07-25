@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>ChunChun Parametre</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../bootstrap.css" rel="stylesheet">
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td><div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">SCREEN 1</label>
+                        </div>
+                        <input type="text" class="form-control" id="1">
+                    </div></td>
+                <td><div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">SCREEN 2</label>
+                        </div>
+                        <input type="text" class="form-control" id="2">
+                    </div></td>
+            </tr>
+            <tr>
+                <td><div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">SCREEN 3</label>
+                        </div>
+                        <input type="text" class="form-control" id="3">
+                    </div></td>
+                <td><div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">SCREEN 4</label>
+                        </div>
+                        <input type="text" class="form-control" id="4">
+                    </div></td>
+            </tr>
+        </table>
+        <button onClick="saveUrl()">SAVE</button>
+        <br>
+        <br>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="selectUrl1" onclick="changeUrl1()">SCREEN 1</button>
+                <button class="btn btn-outline-secondary" type="button" id="selectUrl2" onclick="changeUrl2()">SCREEN 2</button>
+                <button class="btn btn-outline-secondary" type="button" id="selectUrl3" onclick="changeUrl3()">SCREEN 3</button>
+                <button class="btn btn-outline-secondary" type="button" id="selectUrl4" onclick="changeUrl4()">SCREEN 4</button>
+            </div>
+            <select id="selectValue" class="custom-select">
+                <option selected value="https://giphy.com/gifs/konosuba-LZmMH7lmHeNFe">Chunchun Maru</option>
+                <option value="https://www.messenger.com/">Messenger</option>
+                <option value="https://www.facebook.com/">Facebook</option>
+                <option value="https://web.whatsapp.com/">Whatsapp</option>
+                <option value="https://www.deezer.com/fr/">Deezer</option>
+                <option value="https://www.twitch.tv/">Twitch</option>
+                <option value="https://discord.com/channels/@me">Discord</option>
+                <option value="https://duckduckgo.com/">Recherche</option>
+            </select>
+        </div>
+        <script src="url.js"></script>
+    </body>
+</html>
