@@ -18,7 +18,7 @@
   "author": "Meystin",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^9.1.1",
+    "electron": "^15.5.5",
     "electron-builder": "22.11.7"
   },
   "dependencies": {
