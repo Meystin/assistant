@@ -1,14 +1,19 @@
 const storage = require('electron-storage');
-const path = "./paramAnime"
+const path = "./paramAnime";
+const nautiljonScraper = require('nautiljon-scraper');
 
-document.onload=getStateAnime();
+document.onload=getJson(orderAnime);
 
-function getUrl(){
-    var url = document.getElementById('search').getURL();
-    var titre = url.split("/");
-    titre = titre[titre.length-1].split(".");
-    titre = fusion(titre);
-    getJson(ajoutAnime,{titre:titre,url:url});
+function recuperationInfos(name){
+    return info = nautiljonScraper.search(name, "anime", 50);
+}
+
+function ajout(){
+    let name = document.getElementById('name');
+    let info = nautiljonScraper.search(name, "anime", 50);
+    if(info){
+        getJson(ajoutAnime,{titre:name});
+    }
 }
 
 function ajoutAnime(json, anime) {
@@ -34,35 +39,15 @@ function save(json){
     storage.set(path,json).then(err => {});
 }
 
-function fusion(txt){
-    if(txt.length >2){
-        var titre=txt[txt.length - 2];
-        for(var i=txt.length - 3 ; i>-1;i--){
-            titre = txt[i].concat(titre);
-        }
-        return titre.replace(/\+/gi," ");
-    }else{
-        return txt[0].replace(/\+/gi," ");
-    }
-}
-
-function getStateAnime() {
-    document.getElementById("newAnime").style.display = "none";
-    document.getElementById("wishList").style.display = "inline";
-    getJson(orderAnime);
-}
-
 function orderAnime(data){
     var regex = / \? \(en cours\)/;
     var stateAnime = [];
-    console.log(data)
+    console.log(data);
     if (data.length) {
         data.forEach(function (element) {
-            var req = new XMLHttpRequest();
-            req.open('GET', element.url, false);
-            req.send(null);
-            if (req.status === 200) {
-                if (req.responseText.search(regex) > 0) {
+            var req = recuperationInfos(element.titre)
+            if (req) {
+                if (req.diffusion == "en cours") {
                     stateAnime.push({titre: element.titre, state: false});
                 } else {
                     stateAnime.push({titre: element.titre, state: true});
@@ -151,13 +136,6 @@ function suppresionAnime(data,anime){
             }
         });
     }
-}
-
-function ajout(){
-    var height = window.innerHeight - 67;
-    document.getElementById("newAnime").style.display="inline";
-    document.getElementById("search").style.height = height.toString() + "px";
-    document.getElementById("wishList").style.display="none";
 }
 
 function deletedb() {
