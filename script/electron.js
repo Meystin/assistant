@@ -7,18 +7,18 @@ let mainWindow
 function createWindow() {
 
     session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-        details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
+        details.requestHeaders['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.130 Safari/537.36';
         callback({cancel: false, requestHeaders: details.requestHeaders, 'Content-Security-Policy': ["default-src 'self'"]});
     })
     
-    mainWindow = new BrowserWindow(
-        {webPreferences:
+    mainWindow = new BrowserWindow({
+        webPreferences:
             {nodeIntegration: true, nodeIntegrationInWorker: true, enableRemoteModule: true, contextIsolation: false, webviewTag: true}
         , width: 800, height: 600
     })
     
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'chatParam/chatview.html'),
+        pathname: path.join(__dirname, 'anime/animeview.html'),//anime\animeview.html   chatParam/chatview.html
         protocol: 'file:',
         slashes: true
     }))

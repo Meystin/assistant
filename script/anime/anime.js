@@ -1,11 +1,11 @@
 const storage = require('electron-storage');
 const path = "./paramAnime"
 
-document.onload=getStateAnime();
+document.onload=getJson(orderAnime);
 
 function getUrl(){
-    var url = document.getElementById('search').getURL();
-    var titre = url.split("/");
+    var url = document.getElementById('url');
+    var titre = url.value.split("/");
     titre = titre[titre.length-1].split(".");
     titre = fusion(titre);
     getJson(ajoutAnime,{titre:titre,url:url});
@@ -46,16 +46,9 @@ function fusion(txt){
     }
 }
 
-function getStateAnime() {
-    document.getElementById("newAnime").style.display = "none";
-    document.getElementById("wishList").style.display = "inline";
-    getJson(orderAnime);
-}
-
 function orderAnime(data){
     var regex = / \? \(en cours\)/;
     var stateAnime = [];
-    console.log(data)
     if (data.length) {
         data.forEach(function (element) {
             var req = new XMLHttpRequest();
@@ -140,7 +133,6 @@ function suppresionAnime(data,anime){
     var num = 0;
     if (data.length) {
         data.forEach(function (element) {
-            console.log(element.titre);
             if (element.titre == anime) {
                 data.splice(num, 1);
                 save(data);
@@ -153,15 +145,7 @@ function suppresionAnime(data,anime){
     }
 }
 
-function ajout(){
-    var height = window.innerHeight - 67;
-    document.getElementById("newAnime").style.display="inline";
-    document.getElementById("search").style.height = height.toString() + "px";
-    document.getElementById("wishList").style.display="none";
-}
-
 function deletedb() {
     storage.remove(path).then(err => {
-        console.log("delete");
     });
 }

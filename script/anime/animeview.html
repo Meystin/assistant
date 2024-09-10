@@ -7,12 +7,9 @@
         <link href="../bootstrap.css" rel="stylesheet">
     </head>
     <body>
-        <div id="newAnime" style="display:none">
-            <input type='button' onclick="getUrl()" value="Sauvegarde"/>
-            <input type='button' onclick="getStateAnime()" value="Anime"/>
-        <webview id='search' src='https://www.nautiljon.com/' style="width:100%"></webview></div>
         <div id="wishList">
-            <input type='button' onclick="ajout()" value="Ajout"/>
+            <input id="url" type='text'/>
+            <input type='button' onclick="getUrl()" value="Sauvegarde"/>
         </div>
         <input type="button" value="delete" onclick="deletedb()"/> 
         <script src="anime.js"></script>

@@ -1,6 +1,6 @@
 {
   "name": "ChunChunMaru",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "get your own dashboard",
   "main": "./script/electron.js",
   "scripts": {
@@ -18,13 +18,13 @@
   "author": "Meystin",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^9.1.1",
-    "electron-builder": "22.11.7"
+    "electron": "32.0.0",
+    "electron-builder": "25.0.0"
   },
   "dependencies": {
-    "ajv": "^6.12.6",
-    "electron-packager": "15.3.0",
-    "electron-storage": "1.0.7"
+    "ajv": "8.17.1",
+    "@electron/packager": "18.3.4",
+    "electron-store": "10.0.0"
   },
   "build": {
     "appId": "my.ChunChunMaru"
