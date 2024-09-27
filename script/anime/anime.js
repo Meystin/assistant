@@ -1,4 +1,4 @@
-const storage = require('electron-storage');
+import storage from 'electron-store';
 const path = "./paramAnime"
 
 document.onload=getJson(orderAnime);
@@ -8,7 +8,7 @@ function getUrl(){
     var titre = url.value.split("/");
     titre = titre[titre.length-1].split(".");
     titre = fusion(titre);
-    getJson(ajoutAnime,{titre:titre,url:url});
+    setJson(ajoutAnime,{titre:titre,url:url});
 }
 
 function ajoutAnime(json, anime) {
@@ -17,21 +17,24 @@ function ajoutAnime(json, anime) {
     } else {
         json = anime
     }
-    save(json);
 }
 
-function getJson(callback, changedata) {
-    storage.get(path).then(json => {
+function setJson(callback, changedata) {
+    let json = storage.get(anime);
+
+    json.forEach(element => {
         if (!changedata) {
             callback(json ? json : new Array());
         } else {
             callback(json ? json : new Array(), changedata)
         }
-    });
+    save(json);
+    });  
+        
 }
 
 function save(json){
-    storage.set(path,json).then(err => {});
+    storage.set({path: json});
 }
 
 function fusion(txt){
@@ -46,7 +49,8 @@ function fusion(txt){
     }
 }
 
-function orderAnime(data){
+function orderAnime(){
+    let data = storage.get(anime);
     var regex = / \? \(en cours\)/;
     var stateAnime = [];
     if (data.length) {
@@ -129,7 +133,8 @@ function suppression(anime) {
     getJson(suppresionAnime,anime);
 }
 
-function suppresionAnime(data,anime){
+function suppresionAnime(anime){
+    let data = storage.get(anime);
     var num = 0;
     if (data.length) {
         data.forEach(function (element) {
@@ -146,6 +151,5 @@ function suppresionAnime(data,anime){
 }
 
 function deletedb() {
-    storage.remove(path).then(err => {
-    });
+    storage.delete(anime);
 }

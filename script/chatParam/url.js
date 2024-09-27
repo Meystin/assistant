@@ -1,20 +1,18 @@
-const storage = require('electron-storage');
+import storage from 'electron-store';
 const path = "./paramChat"
 
 window.onload = function () {
-    storage.get(path).then(json => {
-        if (json.length) {
-            for (let i = 1; i < 5; i++) {
-                document.getElementById(i).value = json[i - 1];
-            }
+    let json = storage.get('path');
+    if (json.length) {
+        for (let i = 1; i < 5; i++) {
+            document.getElementById(i).value = json[i - 1];
         }
-    });
+    }
 }
 
 function save(json) {
-    storage.set(path,json).then( () => {
-        document.location.href = "./chatview.html";
-    });
+    storage.set({path: json});
+    document.location.href = "./chatview.html";
 }
 
 function saveUrl() {
