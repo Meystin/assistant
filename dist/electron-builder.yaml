@@ -1,5 +1,0 @@
-directories:
-  output: dist
-  buildResources: build
-appId: my.ChunChunMaru
-electronVersion: 2.0.8

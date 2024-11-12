@@ -1,36 +1,36 @@
 {
-  "name": "ChunChunMaru",
-  "version": "3.0.0",
-  "description": "get your own dashboard",
-  "main": "./script/electron.js",
+  "name": "assistant",
+  "version": "1.0.0",
+  "description": "A minimal Electron application with JavaScript",
+  "main": "./out/main/index.js",
+  "author": "example.com",
+  "type": "module",
+  "homepage": "https://electron-vite.org",
   "scripts": {
-    "start": "electron .",
-    "vitedev": "vite",
-    "vitebuild": "vite build",
-    "dist": "electron-builder"
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "Meystin",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "32.0.0",
-    "electron-builder": "25.0.0"
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "start": "electron-vite preview --noSandbox",
+    "dev": "electron-vite dev --noSandbox",
+    "build": "electron-vite build",
+    "postinstall": "electron-builder install-app-deps",
+    "build:unpack": "npm run build && electron-builder --dir",
+    "build:win": "npm run build && electron-builder --win",
+    "build:linux": "npm run build && electron-builder --linux"
   },
   "dependencies": {
-    "@electron/packager": "18.3.4",
-    "ajv": "8.17.1",
-    "create-vite": "^5.5.5",
-    "electron-store": "10.0.0",
-    "vite": "^5.4.10"
+    "@electron-toolkit/preload": "^3.0.1",
+    "@electron-toolkit/utils": "^3.0.0",
+    "electron-updater": "^6.1.7"
   },
-  "build": {
-    "appId": "my.ChunChunMaru"
+  "devDependencies": {
+    "@electron-toolkit/eslint-config": "^1.0.2",
+    "@electron-toolkit/eslint-config-prettier": "^2.0.0",
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.3.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.2",
+    "electron-storage":"^1.0.7",
+    "vite": "^5.3.1"
   }
 }
